@@ -40,14 +40,22 @@ export default Columns;
 
 const Column = styled.div`
   padding: 4px;
-  width: 250px;
-  min-height: 600px;
+  height: 600px;
+  width: 500px;
 `;
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  overflow-y: auto;
+  position: relative;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  /* height: 600px; */
 `;
 
 const ColumnTitle = styled.div`

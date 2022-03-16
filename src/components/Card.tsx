@@ -20,7 +20,8 @@ const Card: React.FC<any> = ({ item, columnIndex, index }) => {
             ...provided.draggableProps.style,
           }}
         >
-          {item.content}
+          <h4>{item.name}</h4>
+          <p>{item.details}</p>
         </CardItem>
       )}
     </Draggable>

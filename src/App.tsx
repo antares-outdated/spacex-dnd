@@ -1,14 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import styled from "styled-components";
 import { Message } from "./components/Alert";
 import Columns from "./components/Columns";
-import { columnsFromBackend } from "./constants";
+import { columnsFn, columnsFromBackend } from "./constants";
+import { useHttp } from "./hook/http.hook";
 import { onDragEnd } from "./utils/onDragEnd";
 
 const App: React.FC = () => {
-  const [columns, setColumns] = useState(columnsFromBackend);
   const [isOpen, setOpen] = useState(false);
+  const [cards, setCards] = useState([]);
+  const [columns, setColumns] = useState(columnsFromBackend);
+
+  const { request } = useHttp();
+
+  useEffect(() => {
+    setColumns(columnsFn(cards));
+  }, [cards]);
+
+  console.log(cards, columns);
 
   const handleDragEnd = (props: any) => {
     if (
@@ -34,6 +44,12 @@ const App: React.FC = () => {
       setOpen(false);
     }, 2000);
   };
+
+  useEffect(() => {
+    request("launches?limit=5").then((res) => {
+      setCards(res.slice(0, 5));
+    });
+  }, []);
 
   return (
     <>

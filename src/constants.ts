@@ -22,3 +22,20 @@ export const columnsFromBackend = {
     items: [],
   },
 };
+
+export const columnsFn = (cards: any) => {
+  return {
+    [uuid()]: {
+      name: "Past Launches",
+      items: [],
+    },
+    [uuid()]: {
+      name: "Launches",
+      items: cards,
+    },
+    [uuid()]: {
+      name: "My Launches",
+      items: [],
+    },
+  };
+};
