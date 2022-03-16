@@ -1,7 +1,8 @@
 import { v4 as uuid } from "uuid";
+import { ActionType, ColumnsType } from "../types";
 import TYPES from "./actionTypes";
 
-const initialState = {
+const initialState: ColumnsType = {
   [uuid()]: {
     name: "Past Launches",
     items: [],
@@ -16,12 +17,9 @@ const initialState = {
   },
 };
 
-export const reducer = (state = initialState, action: any) => {
+export const reducer = (state = initialState, action: ActionType) => {
   switch (action.type) {
     case TYPES.UPDATE_COLUMNS:
-      console.log(action.payload);
-      return action.payload;
-    case TYPES.GET_COLUMNS:
       return action.payload;
     default:
       return state;

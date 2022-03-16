@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-export const Skeleton: React.FC<any> = ({ item, updateOpen }) => (
+export const Skeleton: React.FC = () => (
   <Wrapper>
     <Item />
     <Item />

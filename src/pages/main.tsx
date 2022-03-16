@@ -6,7 +6,7 @@ import Columns from "../components/Columns";
 import { Message } from "../components/Message";
 import { columnsServer } from "../constants";
 import { useHttp } from "../hook/http.hook";
-import { fetchColumns, updateColumns } from "../redux/actions";
+import { updateColumns } from "../redux/actions";
 import { selectData } from "../redux/selectors";
 import { onDragEnd } from "../utils/onDragEnd";
 
@@ -49,7 +49,7 @@ export const Main: React.FC = () => {
 
   useEffect(() => {
     request("launches?limit=5").then((result) => {
-      dispatch(fetchColumns(columnsServer(result)));
+      dispatch(updateColumns(columnsServer(result)));
     });
   }, []);
 

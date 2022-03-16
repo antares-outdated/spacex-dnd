@@ -2,8 +2,15 @@ import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { CardType } from "../types";
 
-const Card: React.FC<any> = ({ item, columnIndex, index }) => {
+type Props = {
+  item: CardType;
+  columnIndex: number;
+  index: number;
+};
+
+const Card: React.FC<Props> = ({ item, columnIndex, index }) => {
   const navigate = useNavigate();
   return (
     <>

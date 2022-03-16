@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useHttp } from "../hook/http.hook";
+import { CardType } from "../types";
 
 export const Card: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [card, setCard] = useState<any>();
+  const [card, setCard] = useState<CardType>();
   const { request } = useHttp();
 
   useEffect(() => {
@@ -27,7 +28,7 @@ export const Card: React.FC = () => {
         <p>{card.details}</p>
 
         <Button onClick={() => navigate("/")}>
-          <img src="/images/arrow.png" alt="" width="50" />
+          <img src="/images/arrow.png" alt="" width="30" />
         </Button>
       </Content>
     </Wrapper>
