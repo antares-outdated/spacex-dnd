@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Columns from "../components/Columns";
 import { Message } from "../components/Message";
-import { columnsServer } from "../constants";
+import { createColumns } from "../utils/createColumns";
 import { useHttp } from "../hook/http.hook";
 import { updateColumns } from "../redux/actions";
 import { selectData } from "../redux/selectors";
@@ -49,7 +49,7 @@ export const Main: React.FC = () => {
 
   useEffect(() => {
     request("launches?limit=5").then((result) => {
-      dispatch(updateColumns(columnsServer(result)));
+      dispatch(updateColumns(createColumns(result)));
     });
   }, []);
 

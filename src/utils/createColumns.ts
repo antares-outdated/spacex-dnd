@@ -1,7 +1,7 @@
 import { v4 as uuid } from "uuid";
-import { CardType, ColumnsType } from "./types";
+import { CardType, ColumnsType } from "../types";
 
-export const columnsServer = (cards: CardType[]): ColumnsType => {
+export const createColumns = (cards: CardType[]): ColumnsType => {
   return {
     [uuid()]: {
       name: "Past Launches",
