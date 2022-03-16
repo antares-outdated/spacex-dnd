@@ -1,7 +1,7 @@
 import React from "react";
 import { Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
-import Card from "./Card";
+import Card from "./CardItem";
 import { Skeleton } from "./Skeleton";
 
 const Columns: React.FC<any> = ({ columnId, column, columnIndex, loading }) => {
@@ -26,15 +26,18 @@ const Columns: React.FC<any> = ({ columnId, column, columnIndex, loading }) => {
                       : "lightgrey",
                 }}
               >
-                {loading && <Skeleton />}
-                {column.items.map((item: any, index: any) => (
-                  <Card
-                    key={item.id}
-                    item={item}
-                    columnIndex={columnIndex}
-                    index={index}
-                  />
-                ))}
+                {!loading ? (
+                  column.items.map((item: any, index: any) => (
+                    <Card
+                      key={item.id}
+                      item={item}
+                      columnIndex={columnIndex}
+                      index={index}
+                    />
+                  ))
+                ) : (
+                  <Skeleton />
+                )}
                 {provided.placeholder}
               </Column>
             );

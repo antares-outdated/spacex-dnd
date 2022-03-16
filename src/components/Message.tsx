@@ -14,8 +14,6 @@ export const Message: React.FC<{ text: string; status: number }> = ({
 
 const Content = styled.div`
   display: flex;
-  text-align: center;
-  align-items: center;
   justify-content: center;
   width: 100%;
   text-transform: uppercase;

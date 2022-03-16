@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 import styled from "styled-components";
-import { Modal } from "./Modal";
+import { useNavigate } from "react-router-dom";
 
 const Card: React.FC<any> = ({ item, columnIndex, index }) => {
-  const [isShowModal, setShowModal] = useState(false);
-
+  const navigate = useNavigate();
   return (
     <>
       <Draggable
@@ -16,7 +15,7 @@ const Card: React.FC<any> = ({ item, columnIndex, index }) => {
       >
         {(provided, snapshot) => (
           <CardItem
-            onClick={() => setShowModal(!isShowModal)}
+            onClick={() => navigate(`/card/${item.id}`)}
             ref={provided.innerRef}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
@@ -30,7 +29,6 @@ const Card: React.FC<any> = ({ item, columnIndex, index }) => {
           </CardItem>
         )}
       </Draggable>
-      {isShowModal && <Modal updateOpen={setShowModal} item={item} />}
     </>
   );
 };
