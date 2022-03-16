@@ -8,7 +8,7 @@ export const Card: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [card, setCard] = useState<CardType>();
-  const { request, loading } = useHttp();
+  const { request } = useHttp();
 
   useEffect(() => {
     request(`launches/${id}`).then((result) => {
@@ -16,7 +16,7 @@ export const Card: React.FC = () => {
     });
   }, []);
 
-  if (loading) {
+  if (!card) {
     return <p>Loading...</p>;
   }
 
