@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { DragDropContext } from "react-beautiful-dnd";
+import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import Columns from "../components/Columns";
@@ -18,10 +18,10 @@ export const Main: React.FC = () => {
 
   const { request, loading } = useHttp();
 
-  const handleDragEnd = (props: any) => {
+  const handleDragEnd = (result: DropResult) => {
     if (
-      columns[props.destination.droppableId].name === "Past Launches" ||
-      !props.destination
+      !result.destination ||
+      columns[result.destination.droppableId].name === "Past Launches"
     ) {
       setError(true);
       setTimeout(() => {
@@ -31,15 +31,15 @@ export const Main: React.FC = () => {
     }
 
     if (
-      columns[props.destination.droppableId].name === "Launches" &&
-      columns[props.source.droppableId].name === "My Launches"
+      columns[result.destination.droppableId].name === "Launches" &&
+      columns[result.source.droppableId].name === "My Launches"
     ) {
       if (!window.confirm("Are you sure?")) {
         return false;
       }
     }
 
-    onDragEnd({ result: props, columns, updateColumns, dispatch });
+    onDragEnd({ result, columns, updateColumns, dispatch });
 
     setOpen(true);
     setTimeout(() => {

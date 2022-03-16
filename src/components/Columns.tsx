@@ -40,9 +40,9 @@ const Columns: React.FC<Props> = ({
                 }}
               >
                 {!loading ? (
-                  column.items.map((item: any, index: any) => (
+                  column.items.map((item: ColumnType, index: number) => (
                     <Card
-                      key={item.id}
+                      key={index}
                       item={item}
                       columnIndex={columnIndex}
                       index={index}
