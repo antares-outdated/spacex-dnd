@@ -28,7 +28,11 @@ const Wrapper = styled.div<{ status?: number }>`
   right: 0;
 
   background-color: ${(props) =>
-    props.status === 201 ? "#00FFB2" : 500 ? "#FF4D00" : "#3a3a3a"};
+    props.status === 201
+      ? "#00FFB2"
+      : props.status === 500
+      ? "#FF4D00"
+      : "#3a3a3a"};
   min-width: 300px;
   min-height: 50px;
   color: ${(props) => (props.status === 201 ? "#3a3a3a" : "#fff")};
