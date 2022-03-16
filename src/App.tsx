@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import styled from "styled-components";
@@ -13,7 +14,7 @@ const App: React.FC = () => {
   const [cards, setCards] = useState([]);
   const [columns, setColumns] = useState(columnsFromBackend);
 
-  const { request } = useHttp();
+  const { request, loading } = useHttp();
 
   useEffect(() => {
     setColumns(columnsFn(cards));
@@ -21,7 +22,7 @@ const App: React.FC = () => {
 
   const handleDragEnd = (props: any) => {
     if (
-      columns[props.destination.droppableId].name === "My Launches" ||
+      columns[props.destination.droppableId].name === "Past Launches" ||
       !props.destination
     ) {
       setError(true);
@@ -33,7 +34,7 @@ const App: React.FC = () => {
 
     if (
       columns[props.destination.droppableId].name === "Launches" &&
-      columns[props.source.droppableId].name === "Past Launches"
+      columns[props.source.droppableId].name === "My Launches"
     ) {
       if (!window.confirm("Are you sure?")) {
         return false;
@@ -50,7 +51,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     request("launches?limit=5").then((res) => {
-      setCards(res.slice(0, 5));
+      setCards(res.slice(0, 10));
     });
   }, []);
 
@@ -67,6 +68,7 @@ const App: React.FC = () => {
             <Columns
               key={columnId}
               columnId={columnId}
+              loading={loading}
               column={column}
               columnIndex={index}
             />
@@ -84,6 +86,8 @@ export default App;
 const WorkSpace = styled.div`
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+
   height: 100%;
 `;
 

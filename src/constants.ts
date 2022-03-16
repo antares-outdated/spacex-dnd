@@ -27,15 +27,15 @@ export const columnsFn = (cards: any) => {
   return {
     [uuid()]: {
       name: "Past Launches",
-      items: [],
+      items: cards.slice(5, 8),
     },
     [uuid()]: {
       name: "Launches",
-      items: cards,
+      items: cards.slice(0, 5),
     },
     [uuid()]: {
       name: "My Launches",
-      items: [],
+      items: cards.slice(8, 10),
     },
   };
 };
