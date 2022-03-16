@@ -1,10 +1,23 @@
 import React from "react";
 import { Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
-import Card from "./Card";
+import { ColumnType } from "../types";
+import Card from "./CardItem";
 import { Skeleton } from "./Skeleton";
 
-const Columns: React.FC<any> = ({ columnId, column, columnIndex, loading }) => {
+type Props = {
+  columnId: string;
+  column: ColumnType;
+  columnIndex: number;
+  loading: boolean;
+};
+
+const Columns: React.FC<Props> = ({
+  columnId,
+  column,
+  columnIndex,
+  loading,
+}) => {
   return (
     <Wrapper key={columnId}>
       <ColumnTitle>{column.name}</ColumnTitle>
@@ -26,15 +39,18 @@ const Columns: React.FC<any> = ({ columnId, column, columnIndex, loading }) => {
                       : "lightgrey",
                 }}
               >
-                {loading && <Skeleton />}
-                {column.items.map((item: any, index: any) => (
-                  <Card
-                    key={item.id}
-                    item={item}
-                    columnIndex={columnIndex}
-                    index={index}
-                  />
-                ))}
+                {!loading ? (
+                  column.items.map((item: ColumnType, index: number) => (
+                    <Card
+                      key={index}
+                      item={item}
+                      columnIndex={columnIndex}
+                      index={index}
+                    />
+                  ))
+                ) : (
+                  <Skeleton />
+                )}
                 {provided.placeholder}
               </Column>
             );
@@ -49,7 +65,7 @@ export default Columns;
 
 const Column = styled.div`
   padding: 4px;
-  width: 500px;
+  width: 400px;
   min-height: 600px;
 `;
 
