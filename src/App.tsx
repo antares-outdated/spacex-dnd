@@ -9,6 +9,7 @@ import { onDragEnd } from "./utils/onDragEnd";
 
 const App: React.FC = () => {
   const [isOpen, setOpen] = useState(false);
+  const [isError, setError] = useState(false);
   const [cards, setCards] = useState([]);
   const [columns, setColumns] = useState(columnsFromBackend);
 
@@ -18,13 +19,15 @@ const App: React.FC = () => {
     setColumns(columnsFn(cards));
   }, [cards]);
 
-  console.log(cards, columns);
-
   const handleDragEnd = (props: any) => {
     if (
       columns[props.destination.droppableId].name === "My Launches" ||
       !props.destination
     ) {
+      setError(true);
+      setTimeout(() => {
+        setError(false);
+      }, 2000);
       return false;
     }
 
@@ -70,7 +73,8 @@ const App: React.FC = () => {
           ))}
         </DragDropContext>
       </WorkSpace>
-      {isOpen && <Message text="Success" />}
+      {isError && <Message status={500} text="Locked for drag-n-drop!" />}
+      {isOpen && <Message status={201} text="Success!" />}
     </>
   );
 };
