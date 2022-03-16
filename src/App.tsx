@@ -1,18 +1,23 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { Message } from "./components/Alert";
 import Columns from "./components/Columns";
 import { columnsFn, columnsFromBackend } from "./constants";
 import { useHttp } from "./hook/http.hook";
+import { selectData } from "./redux/selectors";
 import { onDragEnd } from "./utils/onDragEnd";
 
 const App: React.FC = () => {
+  const data = useSelector(selectData);
   const [isOpen, setOpen] = useState(false);
   const [isError, setError] = useState(false);
   const [cards, setCards] = useState([]);
   const [columns, setColumns] = useState(columnsFromBackend);
+
+  console.log(data);
 
   const { request, loading } = useHttp();
 

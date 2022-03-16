@@ -1,0 +1,10 @@
+const enum TYPES {
+  GET_POSTS = "GET_POSTS",
+  GET_POST_FULL = "GET_POST_FULL",
+  DEL_POST_FULL = "DEL_POST_FULL",
+  EDIT_POST = "EDIT_POST",
+  ADD_POST = "ADD_POST",
+  LOADING = "LOADING",
+}
+
+export default TYPES;

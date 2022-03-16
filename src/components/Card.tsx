@@ -6,8 +6,6 @@ import { Modal } from "./Modal";
 const Card: React.FC<any> = ({ item, columnIndex, index }) => {
   const [isShowModal, setShowModal] = useState(false);
 
-  console.log(item);
-
   return (
     <>
       <Draggable
