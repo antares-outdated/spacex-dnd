@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import styled from "styled-components";
 import { v4 as uuid } from "uuid";
+import { Message } from "./components/Alert";
 
 const itemsFromBackend = [
   { id: uuid(), content: "First task" },
@@ -12,21 +14,20 @@ const itemsFromBackend = [
 
 const columnsFromBackend = {
   [uuid()]: {
-    name: "My Launches",
-    items: itemsFromBackend,
-  },
-  [uuid()]: {
-    name: "Launches",
+    name: "Past Launches",
     items: [],
   },
   [uuid()]: {
-    name: "Past Launches",
+    name: "Launches",
+    items: itemsFromBackend,
+  },
+  [uuid()]: {
+    name: "My Launches",
     items: [],
   },
 };
 
-const onDragEnd = (result: any, columns: any, setColumns: any) => {
-  if (!result.destination) return;
+const onDragEnd = ({ result, columns, setColumns }: any) => {
   const { source, destination } = result;
 
   if (source.droppableId !== destination.droppableId) {
@@ -64,82 +65,149 @@ const onDragEnd = (result: any, columns: any, setColumns: any) => {
 
 function App() {
   const [columns, setColumns] = useState(columnsFromBackend);
+  const [isOpen, setOpen] = useState(false);
+
+  const handleDragEnd = (props: any) => {
+    if (
+      columns[props.result.destination.droppableId].name === "My Launches" ||
+      !props.result.destination
+    ) {
+      return false;
+    }
+
+    if (
+      columns[props.result.destination.droppableId].name === "Launches" &&
+      columns[props.result.source.droppableId].name === "Past Launches"
+    ) {
+      if (window.confirm("Are you sure?")) {
+        onDragEnd(props);
+
+        setOpen(true);
+        setTimeout(() => {
+          setOpen(false);
+        }, 2000);
+
+        return false;
+      } else {
+        return false;
+      }
+    }
+
+    setOpen(true);
+    setTimeout(() => {
+      setOpen(false);
+    }, 2000);
+
+    onDragEnd(props);
+  };
+
   return (
-    <div style={{ display: "flex", justifyContent: "center", height: "100%" }}>
-      <DragDropContext
-        onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
-      >
-        {Object.entries(columns).map(([columnId, column], index) => {
-          return (
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-              key={columnId}
-            >
-              <h2>{column.name}</h2>
-              <div style={{ margin: 8 }}>
-                <Droppable droppableId={columnId} key={columnId}>
-                  {(provided, snapshot) => {
-                    return (
-                      <div
-                        {...provided.droppableProps}
-                        ref={provided.innerRef}
-                        style={{
-                          background: snapshot.isDraggingOver
-                            ? "lightblue"
-                            : "lightgrey",
-                          padding: 4,
-                          width: 250,
-                          minHeight: 500,
-                        }}
-                      >
-                        {column.items.map((item, index) => {
-                          return (
-                            <Draggable
-                              key={item.id}
-                              draggableId={item.id}
-                              index={index}
-                            >
-                              {(provided, snapshot) => {
-                                return (
-                                  <div
+    <>
+      <Title>
+        <h1>Explore to space</h1>
+        <img src="/images/earth.png" width="30" alt="" />
+      </Title>
+      {isOpen && <Message text="Success" />}
+
+      <Inner>
+        <DragDropContext
+          onDragEnd={(result) => handleDragEnd({ result, columns, setColumns })}
+        >
+          {Object.entries(columns).map(([columnId, column], columnIndex) => {
+            return (
+              <Column key={columnId}>
+                <ColumnTitle>{column.name}</ColumnTitle>
+                <div style={{ margin: 8 }}>
+                  <Droppable droppableId={columnId} key={columnId}>
+                    {(provided, snapshot) => {
+                      return (
+                        <ColumnsBackground
+                          {...provided.droppableProps}
+                          ref={provided.innerRef}
+                          style={{
+                            background: snapshot.isDraggingOver
+                              ? "#3A3A3A"
+                              : "lightgrey",
+                          }}
+                        >
+                          {column.items.map((item, index) => {
+                            return (
+                              <Draggable
+                                key={item.id}
+                                isDragDisabled={columnIndex === 2 && true}
+                                draggableId={item.id}
+                                index={index}
+                              >
+                                {(provided, snapshot) => (
+                                  <Card
                                     ref={provided.innerRef}
                                     {...provided.draggableProps}
                                     {...provided.dragHandleProps}
                                     style={{
-                                      userSelect: "none",
-                                      padding: 16,
-                                      margin: "0 0 8px 0",
-                                      minHeight: "50px",
                                       backgroundColor: snapshot.isDragging
-                                        ? "#263B4A"
-                                        : "#456C86",
-                                      color: "white",
+                                        ? "#ccc"
+                                        : "#fff",
                                       ...provided.draggableProps.style,
                                     }}
                                   >
                                     {item.content}
-                                  </div>
-                                );
-                              }}
-                            </Draggable>
-                          );
-                        })}
-                        {provided.placeholder}
-                      </div>
-                    );
-                  }}
-                </Droppable>
-              </div>
-            </div>
-          );
-        })}
-      </DragDropContext>
-    </div>
+                                  </Card>
+                                )}
+                              </Draggable>
+                            );
+                          })}
+                          {provided.placeholder}
+                        </ColumnsBackground>
+                      );
+                    }}
+                  </Droppable>
+                </div>
+              </Column>
+            );
+          })}
+        </DragDropContext>
+      </Inner>
+    </>
   );
 }
 
 export default App;
+
+const Inner = styled.div`
+  display: flex;
+  justify-content: center;
+  height: 100%;
+`;
+const Card = styled.div`
+  user-select: none;
+  padding: 16px;
+  margin: 0 0 8px 0;
+  min-height: 50px;
+`;
+
+const ColumnsBackground = styled.div`
+  padding: 4px;
+  width: 250px;
+  min-height: 600px;
+`;
+
+const Title = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+
+  img {
+    margin-left: 10px;
+  }
+`;
+
+const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const ColumnTitle = styled.div`
+  text-transform: uppercase;
+`;
