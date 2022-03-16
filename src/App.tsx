@@ -1,28 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { Message } from "./components/Alert";
 import Columns from "./components/Columns";
-import { columnsFn, columnsFromBackend } from "./constants";
+import { columnsServer } from "./constants";
 import { useHttp } from "./hook/http.hook";
+import { fetchColumns, updateColumns } from "./redux/actions";
 import { selectData } from "./redux/selectors";
 import { onDragEnd } from "./utils/onDragEnd";
 
 const App: React.FC = () => {
-  const data = useSelector(selectData);
+  const dispatch = useDispatch();
+  const columns = useSelector(selectData);
   const [isOpen, setOpen] = useState(false);
   const [isError, setError] = useState(false);
-  const [cards, setCards] = useState([]);
-  const [columns, setColumns] = useState(columnsFromBackend);
-
-  console.log(data);
 
   const { request, loading } = useHttp();
-
-  useEffect(() => {
-    setColumns(columnsFn(cards));
-  }, [cards]);
 
   const handleDragEnd = (props: any) => {
     if (
@@ -45,7 +39,7 @@ const App: React.FC = () => {
       }
     }
 
-    onDragEnd({ result: props, columns, setColumns });
+    onDragEnd({ result: props, columns, updateColumns, dispatch });
 
     setOpen(true);
     setTimeout(() => {
@@ -54,8 +48,8 @@ const App: React.FC = () => {
   };
 
   useEffect(() => {
-    request("launches?limit=5").then((res) => {
-      setCards(res.slice(0, 10));
+    request("launches?limit=5").then((result) => {
+      dispatch(fetchColumns(columnsServer(result)));
     });
   }, []);
 
