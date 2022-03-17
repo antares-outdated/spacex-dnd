@@ -48,7 +48,6 @@ export const Main: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log(localStorage.getItem("spacex"));
     request("launches?limit=5").then((result) => {
       dispatch(updateColumns(createColumns(result)));
     });
