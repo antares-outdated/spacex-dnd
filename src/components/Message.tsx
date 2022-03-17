@@ -20,8 +20,7 @@ const Content = styled.div`
 `;
 
 const Wrapper = styled.div<{ status?: number }>`
-  display: fixed;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   right: 0;
 
