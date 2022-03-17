@@ -48,13 +48,9 @@ export const Main: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log(localStorage.getItem("spacex"));
     if (localStorage.getItem("spacex")) {
-      const newColumns = createColumns(
-        JSON.parse(localStorage.getItem("spacex") || "{}")
-      );
-      // dispatch(updateColumns(newColumns));
-      console.log(newColumns);
+      const newColumns = JSON.parse(localStorage.getItem("spacex") || "{}");
+      dispatch(updateColumns(newColumns));
     } else {
       request("launches?limit=5").then((result) => {
         dispatch(updateColumns(createColumns(result.slice(0, 10))));
@@ -62,9 +58,9 @@ export const Main: React.FC = () => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   localStorage.setItem("spacex", JSON.stringify(columns));
-  // }, [columns]);
+  useEffect(() => {
+    localStorage.setItem("spacex", JSON.stringify(columns));
+  }, [columns]);
 
   return (
     <>
