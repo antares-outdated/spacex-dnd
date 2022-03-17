@@ -24,6 +24,8 @@ module.exports = {
   devServer: {
     port: 3000,
     hot: isDev,
+    contentBase: "./dist",
+    historyApiFallback: true,
   },
   plugins: [
     new HTMLWebpackPlugin({

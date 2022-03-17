@@ -10,8 +10,11 @@ export const Card: React.FC = () => {
   const [card, setCard] = useState<CardType>();
   const { request } = useHttp();
 
+  console.log(id);
+
   useEffect(() => {
     request(`launches/${id}`).then((result) => {
+      console.log(result);
       setCard(result);
     });
   }, []);
