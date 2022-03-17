@@ -12,7 +12,6 @@ export const Skeleton: React.FC = () => (
 const Item = styled.div`
   background-color: #fff;
   height: 50px;
-  width: 100%;
   margin: 8px;
 `;
 

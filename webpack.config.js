@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require("path");
 const HTMLWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
@@ -33,6 +35,10 @@ module.exports = {
         {
           from: path.resolve(__dirname, "public/moon.ico"),
           to: path.resolve(__dirname, "dist"),
+        },
+        {
+          from: path.resolve(__dirname, "public/images"),
+          to: path.resolve(__dirname, "dist/images"),
         },
       ],
     }),
