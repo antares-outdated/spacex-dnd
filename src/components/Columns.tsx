@@ -65,7 +65,7 @@ export default Columns;
 
 const Column = styled.div`
   padding: 4px;
-  width: 400px;
+  width: 300px;
   min-height: 600px;
 `;
 
