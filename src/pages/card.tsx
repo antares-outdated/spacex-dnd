@@ -38,16 +38,16 @@ export const Card: React.FC = () => {
 const Content = styled.div`
   position: relative;
   padding: 120px;
+
+  @media (max-width: 500px) {
+    padding: 30px;
+  }
 `;
 
 const Wrapper = styled.div<{ status?: number }>`
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 10;
-
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 
   background-color: #ccc;
 `;
