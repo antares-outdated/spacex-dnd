@@ -2,7 +2,7 @@ import React from "react";
 import { Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
 import { ColumnType } from "../types";
-import Card from "./CardItem";
+import { Card } from "./CardItem";
 import { Skeleton } from "./Skeleton";
 
 type Props = {
@@ -12,7 +12,7 @@ type Props = {
   loading: boolean;
 };
 
-const Columns: React.FC<Props> = ({
+export const Columns: React.FC<Props> = ({
   columnId,
   column,
   columnIndex,
@@ -33,10 +33,10 @@ const Columns: React.FC<Props> = ({
                     columnIndex === 0 && snapshot.isDraggingOver
                       ? "#FF4D00"
                       : columnIndex === 1 && snapshot.isDraggingOver
-                      ? "#FFD600"
-                      : columnIndex === 2 && snapshot.isDraggingOver
-                      ? "#00FFB2"
-                      : "lightgrey",
+                        ? "#FFD600"
+                        : columnIndex === 2 && snapshot.isDraggingOver
+                          ? "#00FFB2"
+                          : "lightgrey",
                 }}
               >
                 {!loading ? (
@@ -60,8 +60,6 @@ const Columns: React.FC<Props> = ({
     </Wrapper>
   );
 };
-
-export default Columns;
 
 const Column = styled.div`
   padding: 4px;

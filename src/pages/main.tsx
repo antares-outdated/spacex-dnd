@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import Columns from "../components/Columns";
+import { Columns } from "../components/Columns";
 import { Message } from "../components/Message";
 import { createColumns } from "../utils/createColumns";
 import { useHttp } from "../hook/http.hook";

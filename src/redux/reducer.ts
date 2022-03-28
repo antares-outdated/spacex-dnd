@@ -1,17 +1,16 @@
-import { v4 as uuid } from "uuid";
 import { ActionType, ColumnsType } from "../types";
-import TYPES from "./actionTypes";
+import { TYPES } from "./actionTypes";
 
 const initialState: ColumnsType = {
-  [uuid()]: {
+  "0": {
     name: "Past Launches",
     items: [],
   },
-  [uuid()]: {
+  "1": {
     name: "Launches",
     items: [],
   },
-  [uuid()]: {
+  "2": {
     name: "My Launches",
     items: [],
   },

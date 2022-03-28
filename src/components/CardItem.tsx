@@ -10,37 +10,33 @@ type Props = {
   index: number;
 };
 
-const Card: React.FC<Props> = ({ item, columnIndex, index }) => {
+export const Card: React.FC<Props> = ({ item, columnIndex, index }) => {
   const navigate = useNavigate();
   return (
-    <>
-      <Draggable
-        key={item.id}
-        isDragDisabled={columnIndex === 0 && true}
-        draggableId={item.id}
-        index={index}
-      >
-        {(provided, snapshot) => (
-          <CardItem
-            onClick={() => navigate(`/card/${item.id}`)}
-            ref={provided.innerRef}
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-            style={{
-              backgroundColor: snapshot.isDragging ? "#ccc" : "#fff",
-              ...provided.draggableProps.style,
-            }}
-          >
-            <h4>{item.name}</h4>
-            <p>{item.details}</p>
-          </CardItem>
-        )}
-      </Draggable>
-    </>
+    <Draggable
+      key={item.id}
+      isDragDisabled={columnIndex === 0 && true}
+      draggableId={item.id}
+      index={index}
+    >
+      {(provided, snapshot) => (
+        <CardItem
+          onClick={() => navigate(`/card/${item.id}`)}
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          style={{
+            backgroundColor: snapshot.isDragging ? "#ccc" : "#fff",
+            ...provided.draggableProps.style,
+          }}
+        >
+          <h4>{item.name}</h4>
+          <p>{item.details}</p>
+        </CardItem>
+      )}
+    </Draggable>
   );
 };
-
-export default Card;
 
 const CardItem = styled.div`
   user-select: none;
