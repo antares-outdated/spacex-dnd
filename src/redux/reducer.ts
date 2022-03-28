@@ -5,14 +5,17 @@ const initialState: ColumnsType = {
   "0": {
     name: "Past Launches",
     items: [],
+    status: "PAST"
   },
   "1": {
     name: "Launches",
     items: [],
+    status: "NOW"
   },
   "2": {
     name: "My Launches",
     items: [],
+    status: "MY"
   },
 };
 

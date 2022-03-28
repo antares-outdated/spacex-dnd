@@ -1,6 +1,7 @@
 import React from "react";
 import { Droppable } from "react-beautiful-dnd";
 import styled from "styled-components";
+import { Colors } from "../constants";
 import { ColumnType } from "../types";
 import { Card } from "./CardItem";
 import { Skeleton } from "./Skeleton";
@@ -18,6 +19,23 @@ export const Columns: React.FC<Props> = ({
   columnIndex,
   loading,
 }) => {
+
+  const handlerBackground = (index: number, isDraggingOver: boolean) => {
+    if (!isDraggingOver) {
+      return Colors.grey
+    }
+
+    if (index === 0) {
+      return Colors.red
+    }
+    if (index === 1) {
+      return Colors.yellow
+    }
+    if (index === 2) {
+      return Colors.green
+    }
+  }
+
   return (
     <Wrapper key={columnId}>
       <ColumnTitle>{column.name}</ColumnTitle>
@@ -29,14 +47,7 @@ export const Columns: React.FC<Props> = ({
                 {...provided.droppableProps}
                 ref={provided.innerRef}
                 style={{
-                  background:
-                    columnIndex === 0 && snapshot.isDraggingOver
-                      ? "#FF4D00"
-                      : columnIndex === 1 && snapshot.isDraggingOver
-                        ? "#FFD600"
-                        : columnIndex === 2 && snapshot.isDraggingOver
-                          ? "#00FFB2"
-                          : "lightgrey",
+                  background: handlerBackground(columnIndex, snapshot.isDraggingOver)
                 }}
               >
                 {!loading ? (

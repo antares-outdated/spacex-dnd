@@ -21,7 +21,7 @@ export const Main: React.FC = () => {
   const handleDragEnd = (result: DropResult) => {
     if (
       !result.destination ||
-      columns[result.destination.droppableId].name === "Past Launches"
+      columns[result.destination.droppableId].status === "PAST"
     ) {
       setError(true);
       setTimeout(() => {
@@ -31,8 +31,8 @@ export const Main: React.FC = () => {
     }
 
     if (
-      columns[result.destination.droppableId].name === "Launches" &&
-      columns[result.source.droppableId].name === "My Launches"
+      columns[result.destination.droppableId].status === "NOW" &&
+      columns[result.source.droppableId].status === "MY"
     ) {
       if (!window.confirm("Are you sure?")) {
         return false;
