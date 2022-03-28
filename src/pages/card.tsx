@@ -6,13 +6,13 @@ import { CardType } from "../types";
 
 export const Card: React.FC = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
-  const [card, setCard] = useState<CardType>();
   const { request } = useHttp();
+  const navigate = useNavigate();
+
+  const [card, setCard] = useState<CardType>();
 
   useEffect(() => {
     request(`launches/${id}`).then((result) => {
-      console.log(result);
       setCard(result);
     });
   }, []);

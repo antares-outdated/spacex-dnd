@@ -1,6 +1,6 @@
 import { Dispatch } from "react";
 import { DropResult } from "react-beautiful-dnd";
-import { updateColumns } from "../redux/actions";
+import { updateColumns } from "../redux/columns";
 import { ColumnsType } from "../types";
 
 type Props = {

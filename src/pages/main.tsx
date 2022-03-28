@@ -6,13 +6,13 @@ import { Columns } from "../components/Columns";
 import { Message } from "../components/Message";
 import { createColumns } from "../utils/createColumns";
 import { useHttp } from "../hook/http.hook";
-import { updateColumns } from "../redux/actions";
-import { selectData } from "../redux/selectors";
 import { onDragEnd } from "../utils/onDragEnd";
+import { RootState } from "../redux/store";
+import { updateColumns } from "../redux/columns";
 
 export const Main: React.FC = () => {
   const dispatch = useDispatch();
-  const columns = useSelector(selectData);
+  const columns = useSelector((state: RootState) => state.columns)
   const [isOpen, setOpen] = useState(false);
   const [isError, setError] = useState(false);
 
